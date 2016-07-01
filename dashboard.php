@@ -13,7 +13,6 @@
 		<!-- Bootstrap Core JavaScript -->
 		<script src="bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
 		<link rel="stylesheet" href="css/report.css">
-		<!--<link rel="stylesheet" href="css/print.css" media="print">-->
 		
 		<style>
 			h1{
@@ -27,11 +26,11 @@
 				top: 3px;
 				right: 2px;
 				height: 5.5%;
-				display: inline;
 			}
 			#pesimsr-logo{
 				float: left;
 				position: static;
+				margin-top:25px;
 				top: 20px;
 				left: 15px;
 				height: 2.5%;
@@ -65,21 +64,22 @@
 	</head>
 
 	<body onload="begin()">
-			<div id="navigation">
-				<ul>
-					  <li><a href="logout.php">Logout</a></li>
-					  <li><a href="">Next Student</a></li>
-					  <li ><a onclick='saveStudent()'>Save Student Report Card</a></li>
-				</ul>
+			<div class="navigation">
+					<ul>
+					<li style="float:left;"><p>Student Report Generation</p></li>
+					  <li id="logMeOut"><a href="logout.php">Logout</a></li>
+					  <li id="saveMe"><a onclick='saveStudent()'>Save And Next</a></li>
+					</ul>
 			</div>
 			<div class="page">
 				<img id="pesit-logo" src="img/pesit.png" ></img>
 				<img id="pesimsr-logo" src="img/pesimsr.png" ></img>
-				<h1 style="font-size:25px;"><center>Health Report<center></h1>						
+				<h1 style="font-size:25px;"><center>Health Report<center></h1>
 				<hr>
+
 				<div id="main">
 					<!-- Student Details -->
-					<div class="well well-sm">Student Unique ID:  <b><?php echo $_SESSION['sid'] ?> </b>
+					<div class="well well-sm">Student Unique ID:  <b><span id="student_id"></span></b>
 						<table id="static-table">
 							<tr>
 								<td>Child Name:  <b><span id="cname"></span></b></td>
@@ -99,7 +99,7 @@
 						<table class="table table-hover table-bordered" id="med-table">
 						<thead>
 						  <tr>
-							<th><center>Observation</center></th>
+							<th><center>Observations</center></th>
 							<th><center>Advice</center></th>
 							<th><center>Referal</center></th>
 						  </tr>
@@ -107,9 +107,11 @@
 					  </table>
 					</div>
 				</div>
-				<p id="scissors">- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - ✂ - - - - -  - - - - - - - - - - - - - - - - - - - - - - - - - - - - - </p>
+				
+				<p style="font-size:15px;">- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - ✂ - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - </p>
+				
 				<div id="treatment-div" class="panel panel-default style="margins:0px"">
-					<div class="panel-heading">Prescription <span style="float:right;"><b><?php echo $_SESSION['sid'] ?> </b></span></div>
+					<div class="panel-heading">Prescription <span style="float:right;"><b><span id="student_id_pre"></b></span></div>
 					<div class="panel-body">
 						<table class="table table-bordered" id="treat-table">
 						<thead>
@@ -128,12 +130,14 @@
 					</div>
 				</div>
 			</div>
+		
 	</body>
 	
 	<script>
 		// Global data reciever
 		var dataReceived;
 		var sid = <?php echo $_SESSION['sid'] ?> ;
+		console.log("Stud_id: "+sid);
 		
 		function begin(){
 			setDetails();
@@ -145,7 +149,10 @@
 			getTreat();
 		}
 		
+		
 		function setDetails(){
+			document.getElementById("student_id").innerHTML = sid;
+			document.getElementById("student_id_pre").innerHTML = sid;
 			var child_name = document.getElementById("cname");
 			var parent_name = document.getElementById("pname");
 			var school_name = document.getElementById("sname");
@@ -164,6 +171,7 @@
 				parent_name.innerHTML = tempdata[3];
 			}
 		}		
+		
 		
 		function insertRowRef(c1, c2, c3){
 			var  medTableRef = document.getElementById('med-table');
@@ -363,12 +371,63 @@
 
 		}
 		
-		
 		function saveStudent(){
+			//console.log("Save Student");
+			dataReceived = '';
 			getData("saveStudent.php",sid);
-			
+			if(dataReceived.localeCompare('sucessfull') == 0){
+				cleanTreat();
+				window.print();
+				var tempSID = parseInt(sid) + 1 ;
+				//console.log(tempSID);
+				sid = tempSID;
+				var studentID = prompt("Please enter next student ID", sid);
+				dataReceived = '';
+				getData("checkStudent.php",studentID);
+				if (studentID != null && dataReceived.localeCompare('sucessfull') == 0) {
+					sid = studentID;
+					deleteRows();
+					begin();
+				}else{
+					alert("Invalid Student ID..Please try again");
+					sid = parseInt(sid) - 1;
+				}				
+			}else{
+				alert("Error Saving..Please try again");
+			}
+			//console.log(dataReceived);
 		}
-
+		
+		function deleteRows(){
+			var tab1 = document.getElementById('med-table');
+			var tab2 = document.getElementById('treat-table');
+			for(var i = tab1.rows.length - 1; i > 0; i-- ){
+				tab1.deleteRow(i);
+			}
+			for(var i = tab2.rows.length - 1; i > 0; i-- ){
+				tab2.deleteRow(i);
+			}
+		}
+		
+		function cleanTreat(){
+			var table = document.getElementById("treat-table");
+			var row;
+			for (var i = table.rows.length - 1; i > 0; i--) {
+				row = table.rows[i];
+			   for (var j = 0, col; col = row.cells[j]; j++) {
+				console.log(col.children[0].value);
+				   if(col.children[0].value.length > 0){
+					   //break;
+					}else{
+					    //console.log("del: "+col.children[0].value.length);
+					   table.deleteRow(i);
+					   break;
+				   }
+			   }  
+			}
+		}
+		
+		
 		// Function to get Data from DB
 		function getData(phpName, stud_id) {
 			var xhttp,data;

@@ -3,12 +3,8 @@
         height: 100%;
         margin: 0;
         padding: 0;
-        font: 12pt "Tahoma";
-    }
-    navigation{
-        z-index: 9999999;
-    }
-    ul {
+	}
+	ul {
         list-style-type: none;
         margin: 0;
         padding: 0;
@@ -30,12 +26,28 @@
         padding: 14px 16px;
         text-decoration: none;
     }
+	
+	li p {
+		font-family: Serif;
+		font-size: 16px;
+        display: block;
+        color: white;
+        text-align: center;
+        padding: 14px 16px;
+		margin: 0px;
+    }
 
     /* Change the link color to #111 (black) on hover */
-    li a:hover {
-        background-color: white;
-        color: #5CB85C;
+    li#saveMe a:hover {
+        background-color: #f1c40f;
+        color: white;
     }
+	
+    li#logMeOut a:hover {
+        background-color: #c0392b;
+        color: white;
+    }
+		
     * {
         box-sizing: border-box;
         -moz-box-sizing: border-box;
@@ -43,8 +55,8 @@
     .page {
         width: 210mm;
         min-height: 297mm;
-        padding: 5mm;
-        padding-top: 12mm;
+        padding: 5mm;		
+		padding-top:15mm;
         margin: 0mm auto;
         border: 1px #D3D3D3 solid;
         border-radius: 1px;
@@ -63,13 +75,14 @@
         .page {
             margin: 0;
             border: initial;
-            border-radius: initial;
+            border-radius: initial;					
+			padding: 5mm;
             width: initial;
             min-height: initial;
             box-shadow: initial;
             background: initial;
         }
-		div {
+		div#treatment-div {
 			page-break-inside: avoid;
 		}
 		button#treat-add{
@@ -78,10 +91,9 @@
 		button#treat-delete{
 			display: none;
 		}
-        .navigation{
+		.navigation{
             display: none;
         }
 	}
-
 
 
