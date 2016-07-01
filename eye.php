@@ -26,7 +26,7 @@ if($data['referal'] != null)
             $colName=$key['m_name'];
             if(!strcmp($k,"cv_r") || !strcmp($k,"cv_l") || !strcmp($k,"fe_r") || !strcmp($k,"fe_l") )
             {
-                $colName=$colName." -Normal";
+                $colName=$colName." - Normal";
             }
             
             array_push($colNames,$colName);

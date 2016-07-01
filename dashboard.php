@@ -108,7 +108,7 @@
 					</div>
 				</div>
 				
-				<p style="font-size:15px;">- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - ✂ - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - </p>
+				<p style="font-size:15px;"><center>- - - - - - - - - Cut Here - - - - - - - -<center></p>
 				
 				<div id="treatment-div" class="panel panel-default style="margins:0px"">
 					<div class="panel-heading">Prescription <span style="float:right;"><b><span id="student_id_pre"></b></span></div>
@@ -451,7 +451,7 @@
 					}
 				}
 			};
-			xhttp.open("POST","http://localhost/reportDST/"+phpName,false);
+			xhttp.open("POST","http://122.252.230.46/report/"+phpName,false);
 			xhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
 			xhttp.send("s="+stud_id);
 		}
