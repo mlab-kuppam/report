@@ -22,20 +22,19 @@
 
 			#pesit-logo{
 				float: right;
-				position: relative;
+				position: static;
 				padding-bottom: 5px;
 				top: 3px;
 				right: 2px;
 				height: 5.5%;
-				z-index: 0;
+				display: inline;
 			}
 			#pesimsr-logo{
 				float: left;
-				position: relative;
+				position: static;
 				top: 20px;
 				left: 15px;
 				height: 2.5%;
-				z-index: 0;
 			}
 
 			table#static-table tr td{
