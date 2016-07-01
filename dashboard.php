@@ -13,7 +13,7 @@
 		<!-- Bootstrap Core JavaScript -->
 		<script src="bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
 		<link rel="stylesheet" href="css/report.css">
-		<link rel="stylesheet" href="css/print.css" media="print">
+		<!--<link rel="stylesheet" href="css/print.css" media="print">-->
 		
 		<style>
 			h1{
@@ -27,6 +27,7 @@
 				top: 3px;
 				right: 2px;
 				height: 5.5%;
+				z-index: 0;
 			}
 			#pesimsr-logo{
 				float: left;
@@ -34,6 +35,7 @@
 				top: 20px;
 				left: 15px;
 				height: 2.5%;
+				z-index: 0;
 			}
 
 			table#static-table tr td{
@@ -64,12 +66,18 @@
 	</head>
 
 	<body onload="begin()">
+			<div id="navigation">
+				<ul>
+					  <li><a href="logout.php">Logout</a></li>
+					  <li><a href="">Next Student</a></li>
+					  <li ><a onclick='saveStudent()'>Save Student Report Card</a></li>
+				</ul>
+			</div>
 			<div class="page">
 				<img id="pesit-logo" src="img/pesit.png" ></img>
 				<img id="pesimsr-logo" src="img/pesimsr.png" ></img>
-				<h1 style="font-size:25px;"><center>Health Report<center></h1>
+				<h1 style="font-size:25px;"><center>Health Report<center></h1>						
 				<hr>
-
 				<div id="main">
 					<!-- Student Details -->
 					<div class="well well-sm">Student Unique ID:  <b><?php echo $_SESSION['sid'] ?> </b>
@@ -92,7 +100,7 @@
 						<table class="table table-hover table-bordered" id="med-table">
 						<thead>
 						  <tr>
-							<th><center>Findings</center></th>
+							<th><center>Observation</center></th>
 							<th><center>Advice</center></th>
 							<th><center>Referal</center></th>
 						  </tr>
@@ -121,7 +129,6 @@
 					</div>
 				</div>
 			</div>
-		
 	</body>
 	
 	<script>
@@ -138,7 +145,6 @@
 			getSkin();
 			getTreat();
 		}
-		
 		
 		function setDetails(){
 			var child_name = document.getElementById("cname");
@@ -159,7 +165,6 @@
 				parent_name.innerHTML = tempdata[3];
 			}
 		}		
-		
 		
 		function insertRowRef(c1, c2, c3){
 			var  medTableRef = document.getElementById('med-table');
@@ -357,6 +362,12 @@
 				}
 			}
 
+		}
+		
+		
+		function saveStudent(){
+			getData("saveStudent.php",sid);
+			
 		}
 
 		// Function to get Data from DB

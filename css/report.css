@@ -5,6 +5,37 @@
         padding: 0;
         font: 12pt "Tahoma";
     }
+    navigation{
+        z-index: 9999999;
+    }
+    ul {
+        list-style-type: none;
+        margin: 0;
+        padding: 0;
+        overflow: hidden;
+        background-color: #5CB85C;
+        position: fixed;
+        width: 100%;
+        top: 0;
+    }
+
+    li {
+        float: right;
+    }
+
+    li a {
+        display: block;
+        color: white;
+        text-align: center;
+        padding: 14px 16px;
+        text-decoration: none;
+    }
+
+    /* Change the link color to #111 (black) on hover */
+    li a:hover {
+        background-color: white;
+        color: #5CB85C;
+    }
     * {
         box-sizing: border-box;
         -moz-box-sizing: border-box;
@@ -13,6 +44,7 @@
         width: 210mm;
         min-height: 297mm;
         padding: 5mm;
+        padding-top: 12mm;
         margin: 0mm auto;
         border: 1px #D3D3D3 solid;
         border-radius: 1px;
@@ -46,6 +78,10 @@
 		button#treat-delete{
 			display: none;
 		}
+        .navigation{
+            display: none;
+        }
 	}
+
 
 
