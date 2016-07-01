@@ -21,7 +21,7 @@
     
     @page {
         size: A4;
-        margin: 0;
+        margin: 25px;
     }
     @media print {
         html, body {
@@ -36,28 +36,16 @@
             min-height: initial;
             box-shadow: initial;
             background: initial;
-            page-break-after: always;
         }
-}
-
-h1{
-	font-family: Comic;
-}
-
-#pesit-logo{
-	float: right;
-	position: relative;
-	padding-bottom: 5px;
-	top: 3px;
-	right: 2px;
-	height: 7%;
-}
-#pesimsr-logo{
-	float: left;
-	position: relative;
-	top: 20px;
-	left: 15px;
-	height: 3%;
-}
+		div {
+			page-break-inside: avoid;
+		}
+		button#treat-add{
+			display: none;
+		}
+		button#treat-delete{
+			display: none;
+		}
+	}
 
 

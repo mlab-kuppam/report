@@ -13,8 +13,29 @@
 		<!-- Bootstrap Core JavaScript -->
 		<script src="bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
 		<link rel="stylesheet" href="css/report.css">
+		<link rel="stylesheet" href="css/print.css" media="print">
 		
 		<style>
+			h1{
+				font-family: "Times New Roman", Georgia, Serif;
+			}
+
+			#pesit-logo{
+				float: right;
+				position: relative;
+				padding-bottom: 5px;
+				top: 3px;
+				right: 2px;
+				height: 5.5%;
+			}
+			#pesimsr-logo{
+				float: left;
+				position: relative;
+				top: 20px;
+				left: 15px;
+				height: 2.5%;
+			}
+
 			table#static-table tr td{
 				padding-top: 10px;
 			}
@@ -23,6 +44,22 @@
 				width:20px; 
 				height:20px;
 			}
+			table#med-table td{
+				font-family: "Times New Roman", Georgia, Serif;
+				font-size: 15px;
+			}
+			table#med-table th{
+				font-family: "Times New Roman", Georgia, Serif;
+				font-size: 18px;
+			}
+			table#treat-table td{
+				font-family: "Times New Roman", Georgia, Serif;
+				font-size: 15px;
+			}
+			table#treat-table th{
+				font-family: "Times New Roman", Georgia, Serif;
+				font-size: 18px;
+			}
 		</style>
 	</head>
 
@@ -30,7 +67,7 @@
 			<div class="page">
 				<img id="pesit-logo" src="img/pesit.png" ></img>
 				<img id="pesimsr-logo" src="img/pesimsr.png" ></img>
-				<h1><center>Health Report<center></h1>
+				<h1 style="font-size:25px;"><center>Health Report<center></h1>
 				<hr>
 
 				<div id="main">
@@ -49,7 +86,7 @@
 						</table>
 					</div>
 				</div>
-				<div class="panel panel-default ">
+				<div class="panel panel-default" style="margins:0px">
 					<div class="panel-heading">Medical Details</div>
 					<div class="panel-body">
 						<table class="table table-hover table-bordered" id="med-table">
@@ -63,8 +100,8 @@
 					  </table>
 					</div>
 				</div>
-				<p>- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - ✂ - - - - -  - - - - - - - - - - - - - - - - - - - - - - - - - - - - - </p>
-				<div class="panel panel-default ">
+				<p id="scissors">- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - ✂ - - - - -  - - - - - - - - - - - - - - - - - - - - - - - - - - - - - </p>
+				<div id="treatment-div" class="panel panel-default style="margins:0px"">
 					<div class="panel-heading">Prescription <span style="float:right;"><b><?php echo $_SESSION['sid'] ?> </b></span></div>
 					<div class="panel-body">
 						<table class="table table-bordered" id="treat-table">
