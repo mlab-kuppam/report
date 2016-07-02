@@ -3,8 +3,8 @@ include 'connect.php';
 $conn = $bd;
 $sid=$_POST['s'];
 
-$query="Select * from health1 where child_id=".$sid;
-$query1="Select * from health2 where child_id=".$sid;
+$query="Select * from health1 where child_id=$sid order by `timestamp` desc";
+$query1="Select * from health2 where child_id=$sid order by `timestamp` desc";
 $res=mysqli_query($conn,$query);
 $health1=mysqli_fetch_assoc($res);
 $res=mysqli_query($conn,$query1);
@@ -176,7 +176,7 @@ if($data['referal'] != null)
     
     //Advise checking
     $advice=array();
-    $adv=array_unique(explode(",",$health2['impression']),SORT_REGULAR);
+    $adv=array_unique(explode(",",$data['impression']),SORT_REGULAR);
     $ctr=0;
     if( count($adv)>1 && in_array(0,$adv))
     {

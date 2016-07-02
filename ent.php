@@ -3,7 +3,7 @@ include 'connect.php';
 $conn = $bd;
 $sid=$_POST['s'];
 
-$query="Select * from ent where child_id=".$sid;
+$query="Select * from ent where child_id=$sid order by `timestamp` desc";
 $columnCheck=array('iw_r','iw_l','ad','cleft_operated');
 
 $res=mysqli_query($conn,$query);

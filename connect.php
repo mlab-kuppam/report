@@ -1,7 +1,7 @@
 <?php
 	$mysql_hostname = "localhost";
 	$mysql_user = "root";
-	$mysql_password = "";
+	$mysql_password = "kuppam";
 	$mysql_database = "healthcaredb";
 	$prefix = "";
 	$bd = mysqli_connect($mysql_hostname, $mysql_user, $mysql_password) or die("Could not connect database");
@@ -14,13 +14,13 @@ $impression=array(
     3=> "Keep Ears Dry",
     4=> "Avoid Icecreams/ Cool drinks",
     5=> "Cycloplegic Refraction",
-    6=> "Vit-A Rich foods",
+    6=> "Vit - A Rich foods",
     7=> "Hot Fomentation",
     8=> "Regular Bathing",
     9=> "Clipping of Nails",
     10=> "Proper Brushing Technique",
-    11=> "Vit - C rich foods",
-    12=> "Vit - B rich foods",
+    11=> "Vit - C Rich Foods",
+    12=> "Vit - B Rich Foods",
     13=> "Iron Rich Food",
     14=> "Apply Coconut Oil After Bath",
     15=> "Avoid Scrubbing While Bath",

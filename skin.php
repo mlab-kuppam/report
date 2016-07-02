@@ -3,7 +3,7 @@ include 'connect.php';
 $conn = $bd;
 $sid=$_POST['s'];
 
-$query="Select * from skin where child_id=".$sid;
+$query="Select * from skin where child_id=$sid  order by `timestamp` desc";
 
 $res=mysqli_query($conn,$query);
 
@@ -28,7 +28,7 @@ if($data['referal'] != null)
     
     //Advise checking
     $advice=array();
-    $data['impression']="9";
+    //print_r("impression ".$data['impression']);
     $adv=array_unique(explode(",",$data['impression']),SORT_REGULAR);
     $ctr=0;
     if( count($adv)>1 && in_array(0,$adv))

@@ -3,7 +3,7 @@ include 'connect.php';
 $conn = $bd;
 $sid=$_POST['s'];
 
-$query="Select * from health1 where child_id=".$sid;
+$query="Select * from health1 where child_id=$sid order by `timestamp` desc";
 
 $res=mysqli_query($conn,$query);
 

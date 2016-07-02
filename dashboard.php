@@ -108,7 +108,7 @@
 					</div>
 				</div>
 				
-				<p style="font-size:15px;">- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - ✂ - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - </p>
+				<p style="font-size:15px;"><center>- - - - - - - - - Cut Here - - - - - - - -<center></p>
 				
 				<div id="treatment-div" class="panel panel-default style="margins:0px"">
 					<div class="panel-heading">Prescription <span style="float:right;"><b><span id="student_id_pre"></b></span></div>
@@ -137,8 +137,10 @@
 		// Global data reciever
 		var dataReceived;
 		var sid = <?php echo $_SESSION['sid'] ?> ;
-		console.log("Stud_id: "+sid);
-		
+		//console.log("Stud_id: "+sid);
+		//console.log(window.location.hostname);
+		var ip_address = window.location.hostname;
+
 		function begin(){
 			setDetails();
 			getGeneral();
@@ -182,9 +184,9 @@
 			var cell3 = row.insertCell(2);
 
 			// Add some text to the new cells:
-			cell1.innerHTML = c1;
-			cell2.innerHTML = c2;	
-			cell3.innerHTML = c3;	
+			cell1.innerHTML = "<div contenteditable>"+c1+"</div>";
+			cell2.innerHTML = "<div contenteditable>"+c2+"</div>";	
+			cell3.innerHTML = "<div contenteditable>"+c3+"</div>";	
 		}
 		
 		function getSkin(){
@@ -247,6 +249,7 @@
 			dataReceived = "";
 			getData("general.php", sid);
 			var genData = JSON.parse(dataReceived);
+			//console.log(genData);
 			if(genData['ref'] != null){
 				finalGen1 = "<u><b>General</b></u><br>";
 				for(var i = 0; i < genData['colNames'].length; i++){
@@ -272,6 +275,7 @@
 			dataReceived = "";
 			getData("oral.php", sid);
 			var oralData = JSON.parse(dataReceived);
+			//console.log(oralData);
 			if(oralData['ref'] != null){
 				finalOral1 = "<u><b>Oral</b></u><br>";
 				for(var i = 0; i < oralData['colNames'].length; i++){
@@ -319,6 +323,7 @@
 			dataReceived = "";
 			getData("treat.php", sid);
 			var treatData = dataReceived.split('$');
+			console.log(treatData);
 			for(var i = 0; i < 4; i++){
 				if(treatData[i] != 0){
 					var medData = treatData[i].split('@');
@@ -451,7 +456,7 @@
 					}
 				}
 			};
-			xhttp.open("POST","http://localhost/reportDST/"+phpName,false);
+			xhttp.open("POST","http://"+ip_address+"/report/"+phpName,false);
 			xhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
 			xhttp.send("s="+stud_id);
 		}

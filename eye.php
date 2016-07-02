@@ -4,7 +4,7 @@ $conn = $bd;
 $sid=$_POST['s'];
 //$sid = '21301049108';
 
-$query="Select * from eye where child_id=".$sid;
+$query="Select * from eye where child_id=$sid order by `timestamp` desc";
 $columnCheck=array('cv_r','cv_l','fe_r','fe_l');
 
 $res=mysqli_query($conn,$query);
@@ -26,7 +26,7 @@ if($data['referal'] != null)
             $colName=$key['m_name'];
             if(!strcmp($k,"cv_r") || !strcmp($k,"cv_l") || !strcmp($k,"fe_r") || !strcmp($k,"fe_l") )
             {
-                $colName=$colName." -Normal";
+                $colName=$colName." - Normal";
             }
             
             array_push($colNames,$colName);
