@@ -79,17 +79,28 @@
 
 				<div id="main">
 					<!-- Student Details -->
-					<div class="well well-sm">Student Unique ID:  <b><span id="student_id"></span></b>
-						<table id="static-table">
+					<div class="well well-sm" >
+						<table id="static-table" class="table" rules="none" style="margin-bottom:0px">
+							<tr>
+								<td>Student Unique ID:  <b><span id="student_id"></span></b></td>
+								<td></td>
+								<td>Date:  <b><span id="date"></span></b></td>			
+							</tr>
 							<tr>
 								<td>Child Name:  <b><span id="cname"></span></b></td>
+								<td>Gender:  <b><span id="cgender"></span></b></td>
+								<td>Age:  <b><span id="cage"></span></b></td>			
 							</tr>
 							<tr>
 								<td>Parent Name:  <b><span id="pname"></span></b></td>
+								<td></td>
+								<td>Contact No.:  <b><span id="pmobile"></span></b></td>
 							</tr>
 							<tr>
 								<td>School Name:  <b><span id="sname"></span></b></td>
-							</tr>	
+								<td></td>
+								<td>Contact No.:  <b><span id="smobile"></span></b></td>
+							</tr>
 						</table>
 					</div>
 				</div>
@@ -150,7 +161,46 @@
 			getSkin();
 			getTreat();
 		}
-		
+		function getAge(dateString) {
+			var today = new Date();
+			var birthDate = new Date(dateString);
+			var age = today.getFullYear() - birthDate.getFullYear();
+			var m = today.getMonth() - birthDate.getMonth();
+			if (m < 0 || (m === 0 && today.getDate() < birthDate.getDate())) {
+				age--;
+    			}
+    			return age+" years";
+		}
+
+		function getGender(gen){
+			var gender="";
+			switch(gen){
+				case '1': gender="Male";
+					break;
+				case '2': gender="Female";
+					break;
+				case '3': gender="Other";
+					break;
+			}
+			return gender;		
+		}
+		function currentDate(){
+			var today = new Date();
+			var dd = today.getDate();
+			var mm = today.getMonth()+1; //January is 0!
+			var yyyy = today.getFullYear();
+
+			if(dd<10) {
+    				dd='0'+dd
+			} 
+
+			if(mm<10) {
+    				mm='0'+mm
+			} 
+
+			today = dd+'/'+mm+'/'+yyyy;
+			return today;
+		}
 		
 		function setDetails(){
 			document.getElementById("student_id").innerHTML = sid;
@@ -158,19 +208,31 @@
 			var child_name = document.getElementById("cname");
 			var parent_name = document.getElementById("pname");
 			var school_name = document.getElementById("sname");
+			var child_gender = document.getElementById("cgender");
+			var child_age = document.getElementById("cage");
+			var parent_mobile = document.getElementById("pmobile");
+			var school_mobile = document.getElementById("smobile");
+			var date = document.getElementById("date");
 			
 			getData("queryDetails.php", sid);
 			var tempdata = dataReceived.split('$');
-			
-			child_name.innerHTML = tempdata[1];
+			//console.log(tempdata);
+
 			school_name.innerHTML = tempdata[0];
+			school_mobile.innerHTML = tempdata[1];
 			
-			if(tempdata[4].length > 0){
-				parent_name.innerHTML = tempdata[4];
-			}else if(tempdata[2].length > 0){
-				parent_name.innerHTML = tempdata[2];
+			child_name.innerHTML = tempdata[2];
+			child_age.innerHTML = getAge(tempdata[7]);
+			child_gender.innerHTML = getGender(tempdata[6]);
+			parent_mobile.innerHTML = tempdata[8];
+			date.innerHTML = currentDate();
+				
+			if(tempdata[5].length > 0){
+				parent_name.innerHTML = tempdata[5];
 			}else if(tempdata[3].length > 0){
 				parent_name.innerHTML = tempdata[3];
+			}else if(tempdata[4].length > 0){
+				parent_name.innerHTML = tempdata[4];
 			}
 		}		
 		
@@ -323,7 +385,7 @@
 			dataReceived = "";
 			getData("treat.php", sid);
 			var treatData = dataReceived.split('$');
-			console.log(treatData);
+			//console.log(treatData);
 			for(var i = 0; i < 4; i++){
 				if(treatData[i] != 0){
 					var medData = treatData[i].split('@');

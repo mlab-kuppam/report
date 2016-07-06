@@ -16,9 +16,9 @@ if($data['referal'] != null)
     $colNames=array();
     foreach($data as $k => $value)
     {
+	$key=getColumnName($k,"Skin");    
         if($value==1 && checkColumnName($k))
         {
-            $key=getColumnName($k);
             $colName=$key['m_name'];
             
             array_push($colNames,$colName);

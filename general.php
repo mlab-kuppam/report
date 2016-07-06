@@ -2,7 +2,7 @@
 include 'connect.php';
 $conn = $bd;
 $sid=$_POST['s'];
-
+//$sid='20302009001';
 $query="Select * from health1 where child_id=$sid order by `timestamp` desc";
 $query1="Select * from health2 where child_id=$sid order by `timestamp` desc";
 $res=mysqli_query($conn,$query);
@@ -11,7 +11,7 @@ $res=mysqli_query($conn,$query1);
 $health2=mysqli_fetch_assoc($res);
 $data=array_merge($health1,$health2);
 
-$avoid=array(4,5,6,7,8,9,54,55,56,57,61,62,63,67,73,74,75,81,82,85,86);
+$avoid=array(22,4,5,6,7,8,9,54,55,56,57,61,62,63,67,73,74,75,81,82,85,86);
 $output=array();
 /*
 
@@ -26,14 +26,13 @@ if($data['referal'] != null)
     
     for($i=0;$i<count($c);$i++)
     {
+	$key=getColumnName($c[$i],"General");
         if($i==1)
         {
-            $key=getColumnName($c[$i]);
             $colName=$key['m_name']." - ".$data[$c[$i]];
         }
         else if($i==2 && $data[$c[$i]]!=0)
         {
-            $key=getColumnName($c[$i]);
             $colName=$key['m_name'];
             if($data[$c[$i]]==1)
                     $add=" - Occasional";
@@ -43,7 +42,6 @@ if($data['referal'] != null)
         }
         else if($i==10)
         {
-            $key=getColumnName($c[$i]);
             if($data[$c[$i]]==1)
                 $colName="Trimmed Nails";
             else
@@ -51,7 +49,7 @@ if($data['referal'] != null)
         }
         else if($i==12)
         {
-            $key=getColumnName($c[$i]);
+            
             if($data[$c[$i]]==1)
                 $colName="Regular Bathing";
             else
@@ -59,7 +57,7 @@ if($data['referal'] != null)
         }
         else if($i==14)
         {
-            $key=getColumnName($c[$i]);
+            
             if($data[$c[$i]]==1)
                 $colName="Well Groomed";
             else
@@ -67,7 +65,7 @@ if($data['referal'] != null)
         }
         else if($i==16)
         {
-            $key=getColumnName($c[$i]);
+            
             if($data[$c[$i]]==1)
                 $colName="Regular Brushing";
             else
@@ -75,7 +73,7 @@ if($data['referal'] != null)
         }
         else if($i==18 && $data[$c[$i]]==1)
         {
-            $key=getColumnName($c[$i]);
+            
             $colName=$key['m_name'];
             if($data[$c[$i]."_sn"]==1)
                     $add=" - Using Sanitary Napkin";
@@ -83,9 +81,9 @@ if($data['referal'] != null)
                     $add=" - Not using Sanitary Napkin";
             $colName=$colName.$add;           
         }
-        else if($i==22 && $data[$c[$i]]!=1)
+        else if($i==22 && $data[$c[$i]]>1)
         {
-            $key=getColumnName($c[$i]);
+            
             $colName=$key['m_name'];
             switch($data[$c[$i]])
             {
@@ -98,9 +96,9 @@ if($data['referal'] != null)
             }
                 $colName=$colName.$add;           
         }   
-        else if($data[$c[$i]]==1 && checkColumnName($c[$i]) && strpos($c[$i], 'com') !== false && strpos($c[$i], 'oe') !== false && !in_array($i,$avoid) )
+        else if($data[$c[$i]]==1 && checkColumnName($c[$i]) && !(strpos($c[$i], 'oe') !== false) && !in_array($i,$avoid) )
         {
-                $key=getColumnName($c[$i]);
+                
                 $colName=$key['m_name'];   
                 if($i== 42)
                     {
@@ -115,22 +113,22 @@ if($data['referal'] != null)
                     }
                 else if($i==53)
                     {
-                    if($data[$c[$i]]."_pw")
+                    if($data[$c[$i]."_pw"])
                         $colName=$colName." - Passing Worms";
-                    if($data[$c[$i]]."_pa")
+                    if($data[$c[$i]."_pa"])
                         $colName=$colName." - Pruritis Ani";
-                    if($data[$c[$i]]."_pab")
+                    if($data[$c[$i]."_pab"])
                         $colName=$colName." - Pain Abdomen";
-                    if($data[$c[$i]]."_sl")
+                    if($data[$c[$i]."_sl"])
                         $colName=$colName." - Skin Rashes";
                 }
                 else if($i==60)
                     {
-                        if($data[$c[$i]]."_bl")
+                        if($data[$c[$i]."_bl"])
                             $colName=$colName." - Bow Legs";
-                        if($data[$c[$i]]."_kk")
+                        if($data[$c[$i]."_kk"])
                             $colName=$colName." - Knocked Knees";
-                        if($data[$c[$i]]."_irm")
+                        if($data[$c[$i]."_irm"])
                             $colName=$colName." - Injurgy Related Mal-union";
                     }
                 else if($i==66)
@@ -144,25 +142,25 @@ if($data['referal'] != null)
                     }
                 else if($i==72)
                     {
-                    if($data[$c[$i]]."_bm")
+                    if($data[$c[$i]."_bm"])
                         $colName=$colName." - H/O Burning Micturation";
-                    if($data[$c[$i]]."_if")
+                    if($data[$c[$i]."_if"])
                         $colName=$colName." - Increased Frequency";
-                    if($data[$c[$i]]."_dr")
+                    if($data[$c[$i]."_dr"])
                         $colName=$colName." - Dribbling";
                 }
                 else if($i==80)
                     {
-                    if($data[$c[$i]]."_bg")
+                    if($data[$c[$i]."_bg"])
                         $colName=$colName." - Bleeding Gums";
-                    if($data[$c[$i]]."_ph")
+                    if($data[$c[$i]."_ph"])
                         $colName=$colName." - Petechial Haemorrhages";
                     }
                 else if($i==84)
                     {
-                    if($data[$c[$i]]."_ac")
+                    if($data[$c[$i]."_ac"])
                         $colName=$colName." - Angular Chelitis";
-                    if($data[$c[$i]]."_gt")
+                    if($data[$c[$i]."_gt"])
                         $colName=$colName." - Geographical Tongue";
                     }
                 }

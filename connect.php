@@ -29,11 +29,11 @@ $impression=array(
     18=> "Wear Full Sleeves While Sleeping");
 
 
-function getColumnName($cName)
+function getColumnName($cName,$oName)
 {
     global $conn;
         
-    $query="Select m_name from report where c_name='".$cName."'";
+    $query="Select `m_name` from report where c_name='$cName' and o_name='$oName'";
     $res=mysqli_query($conn,$query);
     $column=mysqli_fetch_assoc($res);
     return ($column);

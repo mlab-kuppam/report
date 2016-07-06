@@ -7,7 +7,7 @@
 	//$sid = '20102003001';
 	//$sid = '20102003007';
 	
-	$healthT=mysqli_query($bd,"SELECT DISTINCT `treatment` FROM `health2` WHERE `child_id`='$sid'  order by `timestamp` desc");
+	$healthT=mysqli_query($bd,"SELECT DISTINCT `treatment` FROM `health2` WHERE `child_id`='$sid' order by `timestamp` desc");
 	$eyeT=mysqli_query($bd,"SELECT DISTINCT `treatment` FROM `eye` WHERE `child_id`='$sid' order by `timestamp` desc");
 	$entT=mysqli_query($bd,"SELECT DISTINCT `treatment` FROM `ent` WHERE `child_id`='$sid' order by `timestamp` desc");	
 	$skinT=mysqli_query($bd,"SELECT DISTINCT `treatment` FROM `skin` WHERE `child_id`='$sid' order by `timestamp` desc");

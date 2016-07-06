@@ -17,9 +17,9 @@ if($data['referal'] != null)
     $colNames=array();
     foreach($data as $k => $value)
     {
+	$key=getColumnName($k,"ENT"); 
         if($value==1 && checkColumnName($k))
         {
-            $key=getColumnName($k);
             $colName=$key['m_name'];
             if(in_array($k,$columnCheck))
             {

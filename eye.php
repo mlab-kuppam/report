@@ -19,10 +19,10 @@ if($data['referal'] != null)
     $colNames=array();
     foreach($data as $k => $value)
     {
+	$key=getColumnName($k,"Eye");           
         if($value==1 && checkColumnName($k))
         {
             
-            $key=getColumnName($k);
             $colName=$key['m_name'];
             if(!strcmp($k,"cv_r") || !strcmp($k,"cv_l") || !strcmp($k,"fe_r") || !strcmp($k,"fe_l") )
             {
@@ -33,7 +33,6 @@ if($data['referal'] != null)
         }
         else if($value==0 && !strcmp($k,"cv_r") || !strcmp($k,"cv_l") || !strcmp($k,"fe_r") || !strcmp($k,"fe_l"))
         {
-            $key=getColumnName($k);
             $colName=$key['m_name']." -Abnormal ".$data[$k."_com"];
             array_push($colNames,$colName);
             
