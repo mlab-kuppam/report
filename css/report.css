@@ -72,6 +72,12 @@
             width: 210mm;
             height: 297mm;        
         }
+        input,textarea {
+			border: none !important;
+			box-shadow: none !important;
+			outline: none !important;
+			
+		}
         .page {
             margin: 0;
             border: initial;

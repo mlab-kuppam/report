@@ -9,6 +9,13 @@ $res=mysqli_query($conn,$query);
 
 $data=mysqli_fetch_assoc($res);
 
+$followUpData = array();
+$follow = mysqli_query($conn,"Select * from `follow_up_data` where `child_id`=$sid and `o_name`='skin'");
+while($row=mysqli_fetch_assoc($follow))
+{
+    $followUpData[$row['disease_name']] = $row['observation']; 
+}
+
 $output=array();
 $output['ref']=$data['referal'];
 if($data['referal'] != null)
@@ -21,7 +28,10 @@ if($data['referal'] != null)
         {
             $colName=$key['m_name'];
             
-            array_push($colNames,$colName);
+            if(array_key_exists($colName,$followUpData) && $followUpData[$colName]==0)
+            {}
+            else
+                array_push($colNames,$colName);
         }
     }
     $output['colNames']=$colNames;
@@ -51,6 +61,11 @@ if($data['referal'] != null)
         }
     }
     $output['advice']=$advice;
+}
+
+if(sizeof($output['colNames']) == 0)
+{
+    $output['ref']=0;
 }
 
 $output=json_encode($output);

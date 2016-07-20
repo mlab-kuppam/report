@@ -84,7 +84,7 @@
 							<tr>
 								<td>Student Unique ID:  <b><span id="student_id"></span></b></td>
 								<td></td>
-								<td>Date:  <b><span id="date"></span></b></td>			
+								<td>Date of Initial Examination : <b><span id="dateIE"></span></b></td>			
 							</tr>
 							<tr>
 								<td>Child Name:  <b><span id="cname"></span></b></td>
@@ -101,11 +101,24 @@
 								<td></td>
 								<td>Contact No.:  <b><span id="smobile"></span></b></td>
 							</tr>
+							<tr>
+								<td>Height :  <b><span id="height"></span></b></td>
+								<td></td>
+								<td>Weight :  <b><span id="weight"></span></b></td>
+							</tr>
 						</table>
 					</div>
 				</div>
 				<div class="panel panel-default" style="margins:0px">
-					<div class="panel-heading">Medical Details</div>
+					<div class="panel-heading">
+						Medical Details
+						<span style="float: right;">
+							Earliest Follow Up Date :
+							<b>
+								<span id="nextFollowUp" ></span>
+							</b>
+						</span>
+						</div>
 					<div class="panel-body">
 						<table class="table table-hover table-bordered" id="med-table">
 						<thead>
@@ -128,8 +141,8 @@
 						<thead>
 						  <tr>
 							<th><center>Medicine</center></th>
+							<th><center>Frequency</center></th>
 							<th><center>Duration</center></th>
-							<th><center>Period</center></th>
 							<th><center>Check Box</center></th>
 						  </tr>
 						</thead>
@@ -212,8 +225,11 @@
 			var child_age = document.getElementById("cage");
 			var parent_mobile = document.getElementById("pmobile");
 			var school_mobile = document.getElementById("smobile");
-			var date = document.getElementById("date");
-			
+			var height = document.getElementById("height");
+			var weight = document.getElementById("weight");
+			var dateIE = document.getElementById("dateIE");
+			var followUpDate = document.getElementById("nextFollowUp");
+
 			getData("queryDetails.php", sid);
 			var tempdata = dataReceived.split('$');
 			//console.log(tempdata);
@@ -225,7 +241,14 @@
 			child_age.innerHTML = getAge(tempdata[7]);
 			child_gender.innerHTML = getGender(tempdata[6]);
 			parent_mobile.innerHTML = tempdata[8];
-			date.innerHTML = currentDate();
+			height.innerHTML = tempdata[9]+" cm";
+			weight.innerHTML = tempdata[10]+" Kg";
+			dateIE.innerHTML = tempdata[11];
+			
+			if(tempdata[12].localeCompare("") != 0)
+				followUpDate.innerHTML = tempdata[12];
+			else
+				followUpDate.innerHTML = "-----";
 				
 			if(tempdata[5].length > 0){
 				parent_name.innerHTML = tempdata[5];

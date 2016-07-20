@@ -11,6 +11,13 @@ $res=mysqli_query($conn,$query1);
 $health2=mysqli_fetch_assoc($res);
 $data=array_merge($health1,$health2);
 
+$followUpData = array();
+$follow = mysqli_query($conn,"Select * from `follow_up_data` where `child_id`=$sid and `o_name`='general'");
+while($row=mysqli_fetch_assoc($follow))
+{
+    $followUpData[$row['disease_name']] = $row['observation']; 
+}
+
 $avoid=array(22,4,5,6,7,8,9,54,55,56,57,61,62,63,67,73,74,75,81,82,85,86);
 $output=array();
 /*
@@ -166,8 +173,12 @@ if($data['referal'] != null)
                 }
         else
             continue;
-        array_push($colNames,$colName);
         
+        if(array_key_exists($colName,$followUpData) && $followUpData[$colName]==0)
+        {}
+        else
+        array_push($colNames,$colName);
+
     }
     $output['colNames']=$colNames;
     
@@ -196,6 +207,12 @@ if($data['referal'] != null)
         }
     }
     $output['advice']=$advice;
+}
+
+
+if(sizeof($output['colNames']) == 0)
+{
+    $output['ref']=0;
 }
 
 $output=json_encode($output);

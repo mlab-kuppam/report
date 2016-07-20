@@ -11,6 +11,13 @@ $res=mysqli_query($conn,$query);
 
 $data=mysqli_fetch_assoc($res);
 
+$followUpData = array();
+$follow = mysqli_query($conn,"Select * from `follow_up_data` where `child_id`=$sid and `o_name`='eye'");
+while($row=mysqli_fetch_assoc($follow))
+{
+    $followUpData[$row['disease_name']] = $row['observation']; 
+}
+
 $output=array();
 $output['ref']=$data['referal'];
 
@@ -29,12 +36,18 @@ if($data['referal'] != null)
                 $colName=$colName." - Normal";
             }
             
-            array_push($colNames,$colName);
+            if(array_key_exists($colName,$followUpData) && $followUpData[$colName]==0)
+            {}
+            else
+                array_push($colNames,$colName);
         }
         else if($value==0 && !strcmp($k,"cv_r") || !strcmp($k,"cv_l") || !strcmp($k,"fe_r") || !strcmp($k,"fe_l"))
         {
             $colName=$key['m_name']." -Abnormal ".$data[$k."_com"];
-            array_push($colNames,$colName);
+            if(array_key_exists($colName,$followUpData) && $followUpData[$colName]==0)
+            {}
+            else
+                array_push($colNames,$colName);
             
         }
     }
@@ -64,6 +77,11 @@ if($data['referal'] != null)
         }
     }
     $output['advice']=$advice;
+}
+
+if(sizeof($output['colNames']) == 0)
+{
+    $output['ref']=0;
 }
 
 $output=json_encode($output);
