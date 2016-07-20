@@ -64,5 +64,8 @@
 	//echo $result1L.$result2L.$result3L.$result4L;
 	//echo $result1.$result2.$result3.$result4;
 	echo $final;
+
+
+mysqli_close($bd);
 	exit();
  ?>

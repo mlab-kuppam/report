@@ -98,4 +98,7 @@ if(sizeof($output['colNames']) == 0)
 
 $output=json_encode($output);
 print_r($output);
+
+mysqli_close($conn);
+exit();
 ?>

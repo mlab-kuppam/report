@@ -33,5 +33,8 @@
 	$result5 = $row['DATE_FORMAT(date(`next_follow_up`),\'%d-%m-%Y\')']. "$";
 	
 	echo $result1.$result2.$result3.$result4.$result5;
+
+
+	mysqli_close($bd);
 	exit();
  ?>
